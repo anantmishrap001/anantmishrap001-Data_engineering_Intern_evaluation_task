@@ -128,17 +128,5 @@ Each processed record follows this structure:
 }
 ```
 
----
-
-## What This Project Demonstrates
-
-* Clear data pipeline structure
-* Reasonable and easy-to-understand extraction logic
-* Clean Airflow DAG with defined task boundaries
-* Basic error handling and reliability
-* Understanding of how data flows from raw to analytics
-
----
-
 **Author:** Anant Mishra
 **Role:** Data Engineer Intern Candidate
