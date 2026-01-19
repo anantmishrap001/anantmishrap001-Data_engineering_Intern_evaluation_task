@@ -1,7 +1,7 @@
 {
   "website": "https://www.python.org",
   "section": "case_study",
-  "content": "",
-  "crawl_timestamp": "2026-01-19T11:17:35.933349",
-  "isActive": false
+  "content": "Found section 'success stories': /success-stories/",
+  "crawl_timestamp": "2026-01-19T12:21:47.770027",
+  "isActive": true
 }
