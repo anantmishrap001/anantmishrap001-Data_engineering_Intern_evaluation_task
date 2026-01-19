@@ -37,6 +37,6 @@ class WebsiteCrawler:
                 
             except requests.RequestException as e:
                 print(f"Failed to crawl {url}: {str(e)}")
-                # In a real scenario, push this to a Dead Letter Queue (DLQ)
+    
         
         return results

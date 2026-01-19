@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 import sys
 import os
 
-# Add plugins to path so Airflow can find our custom modules
 sys.path.append(os.path.join(os.environ.get('AIRFLOW_HOME', '/opt/airflow'), 'plugins'))
 
 from web_etl.crawler import WebsiteCrawler
@@ -20,7 +19,6 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-# [cite_start]Define DAG [cite: 19]
 with DAG(
     'website_content_pipeline_v1',
     default_args=default_args,
@@ -31,8 +29,7 @@ with DAG(
     tags=['etl', 'scraping'],
 ) as dag:
 
-    # Task 1: Crawl Websites
-    # Note: Wrappers are used to instantiate classes within the execution context
+    # 1: Crawl Websites
     def run_crawler():
         crawler = WebsiteCrawler()
         crawler.fetch_and_store()
@@ -43,7 +40,7 @@ with DAG(
         doc_md="Fetches HTML from target list and saves to data/raw"
     )
 
-    # Task 2: Extract and Standardize
+    # 2: Extract and Standardize
     def run_extractor():
         extractor = ContentExtractor()
         extractor.process_raw_files()
@@ -54,7 +51,7 @@ with DAG(
         doc_md="Reads raw HTML, parses sections using heuristics, saves JSON"
     )
 
-    # Task 3: Aggregate Metrics
+    # 3: Aggregate Metrics
     def run_analytics():
         aggregator = DataAggregator()
         aggregator.generate_metrics()
@@ -65,5 +62,5 @@ with DAG(
         doc_md="Reads processed JSONs and generates summary statistics"
     )
 
-    # [cite_start]Define Dependencies [cite: 19]
+    # Define Dependencies 
     t1_crawl >> t2_extract >> t3_aggregate

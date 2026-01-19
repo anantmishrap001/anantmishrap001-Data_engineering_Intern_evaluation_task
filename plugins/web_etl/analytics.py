@@ -22,11 +22,11 @@ class DataAggregator:
         
         df = pd.DataFrame(data)
         
-        # [cite_start]Metric 1: Number of websites with case studies [cite: 17]
+        # 1: Number of websites with case studies
         case_studies = df[(df['section'] == 'case_study') & (df['isActive'] == True)]
         total_case_studies = case_studies['website'].nunique()
 
-        # Metric 2: Content length stats
+        # 2: Content length stats
         df['content_length'] = df['content'].apply(len)
         stats = df.groupby('section')['content_length'].describe()
 

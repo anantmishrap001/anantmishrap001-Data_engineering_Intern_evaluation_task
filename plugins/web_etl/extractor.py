@@ -26,17 +26,14 @@ class ContentExtractor:
             
             soup = BeautifulSoup(html_content, 'html.parser')
             
-            # [cite_start]Heuristics for sections [cite: 12]
-            # In a real production env, these would be configuration-driven per domain
+           
             sections = {
                 "navbar": self._extract_text(soup, "nav"),
                 "footer": self._extract_text(soup, "footer"),
                 "homepage": self._extract_text(soup, "main") or self._extract_text(soup, "body"),
-                # Heuristic: Check for links containing 'case-study' to imply existence
                 "case_study": "Case study section detected" if soup.find("a", href=True, string=lambda t: t and "case study" in t.lower()) else ""
             }
 
-            # [cite_start]Create Standardized Records [cite: 15]
             base_filename = file.replace('.html', '')
             domain = base_filename.split('_')[0]
             
@@ -44,12 +41,12 @@ class ContentExtractor:
                 record = {
                     "website": f"https://{domain}",
                     "section": section_name,
-                    "content": content[:500], # Truncated for demo
+                    "content": content[:500], 
                     "crawl_timestamp": datetime.now().isoformat(),
                     "isActive": bool(content)
                 }
                 
-                # Write individual record (Partitioned by section conceptually)
+                # Write individual record 
                 output_file = f"{base_filename}_{section_name}.json"
                 output_path = os.path.join(self.processed_path, output_file)
                 
