@@ -1,0 +1,7 @@
+{
+  "website": "https://airflow.apache.org",
+  "section": "homepage",
+  "content": "PrinciplesScalableApache Airflow\u00c2\u00ae has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers. Airflow\u00e2\u0084\u00a2 is ready to scale to infinity.DynamicApache Airflow\u00c2\u00ae pipelines are defined in Python, allowing for dynamic pipeline generation. This allows for writing code that instantiates pipelines dynamically.ExtensibleEasily define your own operators and extend libraries to fit the level of abstraction that suits your environment.ElegantApache Airflow\u00c2\u00ae pipelines",
+  "crawl_timestamp": "2026-01-19T11:17:35.557682",
+  "isActive": true
+}
