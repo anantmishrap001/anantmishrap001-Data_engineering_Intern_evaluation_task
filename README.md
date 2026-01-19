@@ -1,7 +1,5 @@
 # Website Content Extraction Pipeline
 
-**Data Engineer Intern – Evaluation Task (GrowthPal)**
-
 ---
 
 ## Project Overview
