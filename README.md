@@ -6,24 +6,34 @@
 
 ## Project Overview
 
-This project implements an **end-to-end data engineering pipeline** orchestrated using **Apache Airflow**.
-The pipeline crawls company websites, stores raw HTML in an S3-style folder structure, extracts and standardizes key content sections using simple heuristics, and generates aggregated analytical metrics.
+This project demonstrates a **basic end-to-end data engineering pipeline** built using **Python and Apache Airflow**.
 
-The implementation prioritizes **clean pipeline design, reliability, and clarity**, with a clear separation between orchestration and business logic.
+The pipeline:
+
+* Visits company websites
+* Stores raw website HTML files
+* Extracts useful content sections
+* Converts the content into a structured format
+* Generates simple analytics
+
+The main goal of this project is to show **clear data flow, good structure, and reliable execution**, rather than advanced web scraping.
 
 ---
 
-## What the Pipeline Does
+## What This Project Does
 
-1. Crawls selected company websites and internal pages
-2. Stores raw HTML and crawl metadata without modification
-3. Extracts meaningful content sections:
+The pipeline performs the following steps:
+
+1. Crawls company websites and internal pages
+2. Saves raw HTML files without changing them
+3. Extracts important sections such as:
+
    * Navbar
    * Homepage content
    * Footer
-   * Case studies (if available)
-4. Transforms extracted content into a standardized JSON schema
-5. Generates aggregated analytics from processed data
+   * Case studies (if present)
+4. Converts extracted content into a standard JSON format
+5. Creates summary analytics from the processed data
 
 ---
 
@@ -32,14 +42,14 @@ The implementation prioritizes **clean pipeline design, reliability, and clarity
 ```
 Websites
    ↓
-Raw HTML Storage (data/raw)
+Raw HTML Files (data/raw)
    ↓
-Extracted & Standardized Records (data/processed)
+Structured JSON Data (data/processed)
    ↓
-Aggregated Metrics (data/analytics)
+Analytics Output (data/analytics)
 ```
 
-Each stage produces deterministic outputs and can be re-run safely.
+Each step runs independently and can be safely re-run.
 
 ---
 
@@ -47,58 +57,68 @@ Each stage produces deterministic outputs and can be re-run safely.
 
 ```
 ├── dags/
-│   └── website_content_dag.py      
+│   └── website_content_dag.py      # Airflow workflow definition
 ├── plugins/
 │   └── web_etl/
-│       ├── crawler.py              
-│       ├── extractor.py            
-│       └── analytics.py            
+│       ├── crawler.py              # Downloads website HTML
+│       ├── extractor.py            # Extracts and structures content
+│       └── analytics.py            # Generates simple metrics
 ├── data/
-│   ├── raw/                        
-│   ├── processed/                  
-│   └── analytics/                  
+│   ├── raw/                        # Raw website HTML files
+│   ├── processed/                  # Cleaned and structured JSON data
+│   └── analytics/                  # Final analytics results
 └── requirements.txt
 ```
 
 ---
 
-## Design Choices Implemented
+## Design Choices Made
 
-**Separation of Concerns**
+### Separation of Tasks
 
-* Airflow DAG is limited to orchestration and dependencies
-* Crawling, extraction, and analytics logic are implemented in modular Python files
+* Airflow handles **only the workflow order**
+* Python files handle **actual processing logic**
 
-**Raw Data Storage (S3 Simulation)**
-
-* Raw HTML is stored unchanged in a structured directory layout
-* Raw, processed, and analytics data are stored in separate layers
-
-**Heuristic-Based Extraction**
-
-* HTML is parsed using BeautifulSoup
-* Semantic tags and keyword matching are used to identify sections
-* Missing sections are captured as empty content and flagged inactive
-
-**Idempotent Execution**
-
-* Re-running the DAG overwrites outputs for the same inputs
-* No duplicate data is created across runs
+This makes the code easier to read and debug.
 
 ---
 
-## Error Handling & Reliability
+### Raw Data Storage
 
-* HTTP requests use timeouts and exception handling
-* Crawl failures for individual websites do not stop the pipeline
-* Missing HTML sections do not cause task failures
-* Airflow tasks are configured with retries and retry delays
+* Website HTML is stored exactly as downloaded
+* Raw data is kept separate from processed data
+
+This allows reprocessing without re-downloading websites.
 
 ---
 
-## Data Model
+### Simple Content Extraction
 
-Each processed record follows a consistent schema:
+* HTML is parsed using **BeautifulSoup**
+* Common HTML tags and keywords are used to find sections
+* Missing sections are handled safely without errors
+
+---
+
+### Idempotent Pipeline
+
+* Running the pipeline multiple times does not create duplicates
+* Output files are overwritten with the latest results
+
+---
+
+## Error Handling
+
+* Network requests use timeouts
+* Errors from one website do not stop the entire pipeline
+* Missing HTML sections are marked inactive instead of failing
+* Airflow retries tasks automatically if a temporary error occurs
+
+---
+
+## Data Format
+
+Each processed record follows this structure:
 
 ```json
 {
@@ -112,24 +132,13 @@ Each processed record follows a consistent schema:
 
 ---
 
-## Deliverables Included
+## What This Project Demonstrates
 
-* Airflow DAG defining task boundaries and execution order
-* Python modules for crawling, extraction, and analytics
-* Sample raw, processed, and aggregated data outputs
-* Documentation explaining design decisions and reliability handling
-
----
-
-## Evaluation Alignment
-
-This project demonstrates:
-
-* Clear data modeling and pipeline structure
-* Reasonable and explainable extraction logic
-* Well-defined Airflow DAG and task separation
-* Robust error handling and logging
-* Strong understanding of data engineering workflows and trade-offs
+* Clear data pipeline structure
+* Reasonable and easy-to-understand extraction logic
+* Clean Airflow DAG with defined task boundaries
+* Basic error handling and reliability
+* Understanding of how data flows from raw to analytics
 
 ---
 
