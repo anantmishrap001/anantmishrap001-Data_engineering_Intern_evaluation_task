@@ -55,17 +55,23 @@ Each step runs independently and can be safely re-run.
 
 ```
 ├── dags/
-│   └── website_content_dag.py      # Airflow workflow definition
+│   └── website_content_dag.py      # Airflow DAG defining the pipeline schedule & tasks
+│
 ├── plugins/
 │   └── web_etl/
-│       ├── crawler.py              # Downloads website HTML
-│       ├── extractor.py            # Extracts and structures content
-│       └── analytics.py            # Generates simple metrics
+│       ├── crawler.py              # Downloads/crawls website HTML
+│       ├── extractor.py            # Extracts structured content from HTML
+│       └── analytics.py            # Computes analytics from processed data
+│
 ├── data/
-│   ├── raw/                        # Raw website HTML files
-│   ├── processed/                  # Cleaned and structured JSON data
-│   └── analytics/                  # Final analytics results
-└── requirements.txt
+│   ├── raw/                        # Raw downloaded HTML files
+│   ├── processed/                  # Cleaned & structured JSON data
+│   └── analytics/                  # Analytics results
+│
+├── Docker-compose.yaml             # Docker setup (likely for Airflow + service)
+├── README.md                      # Project documentation & overview
+└── requirements.txt               # Python dependencies
+
 ```
 
 ---
