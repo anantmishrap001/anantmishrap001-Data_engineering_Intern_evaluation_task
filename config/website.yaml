@@ -1,0 +1,10 @@
+# Website configuration file
+websites:
+  - name: python
+    url: https://www.python.org
+
+  - name: airflow
+    url: https://airflow.apache.org
+
+  - name: pandas
+    url: https://pandas.pydata.org
