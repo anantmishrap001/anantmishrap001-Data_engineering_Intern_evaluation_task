@@ -59,9 +59,12 @@ Each step runs independently and can be safely re-run.
 │
 ├── plugins/
 │   └── web_etl/
-│       ├── crawler.py              # Downloads/crawls website HTML
+│       ├── crawler.py              # Downloads website HTML
 │       ├── extractor.py            # Extracts structured content from HTML
 │       └── analytics.py            # Computes analytics from processed data
+│
+├── config/
+│   └── websites.yaml               #stores website names
 │
 ├── data/
 │   ├── raw/                        # Raw downloaded HTML files
