@@ -73,7 +73,9 @@ Each step runs independently and can be safely re-run.
 │
 ├── Docker-compose.yaml             # Docker setup (likely for Airflow + service)
 ├── README.md                      # Project documentation & overview
+├── .gitignore
 └── requirements.txt               # Python dependencies
+
 
 ```
 
