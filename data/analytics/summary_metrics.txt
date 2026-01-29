@@ -1,4 +1,4 @@
-Total Websites with Case Studies: 7
+Total Websites with Case Studies: 3
 
 Content Length Statistics:
             count    mean         std    min    25%    50%    75%    max
